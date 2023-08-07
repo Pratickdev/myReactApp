@@ -1,0 +1,20 @@
+.desc
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fotter {
+    text-align: center;
+}
+.wraper{
+margin-left: 10px;    
+}
+*
+{
+    margin: 0 0;
+    padding: 0 0;
+}
+body {
+    overflow-x: hidden; /* Hide scrollbars */
+  }
