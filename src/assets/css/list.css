@@ -18,3 +18,25 @@ margin-left: 10px;
 body {
     overflow-x: hidden; /* Hide scrollbars */
   }
+
+  .pagination
+  {
+    padding: 10px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .pagination span
+  {
+    padding: 15px 20px;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+  .pagination_selected
+  {
+    background-color: blanchedalmond;
+  }
+  .paginationDisable
+  {
+    display: none;
+  }

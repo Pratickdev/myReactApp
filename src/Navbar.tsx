@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "./Layout";
+import axios from "axios";
 export default function Navbar(props: any) {
   ////////// Login Funtionality ///////////
   const [login, setLogin] = useState("");
@@ -29,8 +30,24 @@ export default function Navbar(props: any) {
     ) {
       setIsshow(false);
     }
+    getAllcategory();
   }, [location]);
 
+  ///////////////////// Fetch dynamic category list ///////////////////
+  const [allData, setAlldata] = useState([]);
+  const [Err, setErr] = useState("");
+  function getAllcategory() {
+    axios
+      .get("https://dummyjson.com/products/categories")
+      .then((res) => {
+        setAlldata(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        setErr(err);
+      });
+  }
+  if (Err) return <p>{Err}</p>;
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -77,10 +94,13 @@ export default function Navbar(props: any) {
                   }}
                 >
                   <option value="">All Ctegory</option>
-                  <option value="electronics">Electronics</option>
-                  <option value="jewelery">Jewelery</option>
-                  <option value="men's clothing">Men's clothing</option>
-                  <option value="women's clothing">Women's clothing</option>
+                  {allData.map((eachcategory, i) => {
+                    return (
+                      <option value={eachcategory} key={i}>
+                        {eachcategory}
+                      </option>
+                    );
+                  })}
                 </select>
               </li>
             ) : (

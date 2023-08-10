@@ -5,7 +5,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 export default function Productdetails() {
   const param = useParams();
-  let fetchUrl = "https://fakestoreapi.com/products/" + param.id;
+  let fetchUrl = "https://dummyjson.com/products/" + param.id;
   const {
     data: blogsdetails,
     error,
@@ -30,10 +30,10 @@ export default function Productdetails() {
                   className="rounded-4"
                   target="_blank"
                   data-type="image"
-                  href={blogsdetails.image}>
+                  href={blogsdetails.thumbnail}>
                   <img
                     className="rounded-4 fit prod-img"
-                    src={blogsdetails.image}
+                    src={blogsdetails.thumbnail}
                   />
                 </a>
               </div>
