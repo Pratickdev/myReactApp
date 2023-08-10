@@ -33,19 +33,25 @@ export default function Hompage(Props: any) {
   /////////////////////////////////////// Get the category from context////////
   let selectedCategory = useContext(MyContext);
   selectedCategory = selectedCategory.category;
-  console.log(selectedCategory);
   ////////////// Get the cart count from rect context API ////////////
   let cartCount = useContext(MyContext);
   cartCount = cartCount.cartCount;
+  //////////// Get the search param details ///////////
+  let searchParam = useContext(MyContext);
+  searchParam = searchParam.search;
   //////////// Using use state to temporarily hold the API data ////////////
   ////// APi fetching via axios started ////////////////////////////////
 
   /////////// If any category is selected then creating the link accordingly ///////////
   var dynamicURL =
-    selectedCategory != ""
+    selectedCategory !== ""
       ? `https://dummyjson.com/products/category/` +
         selectedCategory +
         `?limit=10&skip=${page * 10 - 10}`
+      : searchParam !== "" 
+      ? `https://dummyjson.com/products/search?q=${searchParam}&limit=10&skip=${
+          page * 10 - 10
+        }`
       : `https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`;
   /////////////////// Using useefect hook to control the render of the component ////////////
   useEffect(() => {
@@ -56,7 +62,7 @@ export default function Hompage(Props: any) {
     } else {
       setLogin(localData);
     }
-  }, [dynamicURL, page]);
+  }, [dynamicURL, page, searchParam]);
   /////////////////// Using axios to get the data///////////////////
 
   function fetchdetails() {
@@ -64,7 +70,7 @@ export default function Hompage(Props: any) {
       .get(dynamicURL)
       .then((res) => {
         setAlldata(res.data.products);
-        setTotalPages(res.data.total / 10);
+        setTotalPages(Math.round(res.data.total/ 10));
       })
       .catch((err) => {
         setErr(err);

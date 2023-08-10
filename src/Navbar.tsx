@@ -41,12 +41,12 @@ export default function Navbar(props: any) {
       .get("https://dummyjson.com/products/categories")
       .then((res) => {
         setAlldata(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         setErr(err);
       });
   }
+  const [search, setSearch] = useState("");
   if (Err) return <p>{Err}</p>;
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -107,6 +107,19 @@ export default function Navbar(props: any) {
               ""
             )}
           </ul>
+          <form className="form-inline my-2 my-lg-2">
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                props.searchHandler(e.target.value);
+              }}
+            />
+          </form>
           <div className="d-flex">
             <label>{cartCount}</label>
             <Link to="/cart">
